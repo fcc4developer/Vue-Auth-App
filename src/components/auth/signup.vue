@@ -4,16 +4,17 @@
       <div class="form">
         <form class="login-form" @submit.prevent="onSubmit">
           <div class="input" :class="{invalid: $v.email.$error}">
-            <h6 v-if="!$v.email.email">Please provide a valid email address.</h6>
+            <p v-if="email.length && !$v.email.required">Email is required.</p>
+            <p v-if="!$v.email.email">Email must be valid and unique.</p>
             <input
                     type="email"
                     placeholder="Email"
                     id="email"
                     @blur="$v.email.$touch()"
-                    v-model="email">
+                    v-model.lazy.trim="email">
           </div>
           <div class="input" :class="{invalid: $v.age.$error}">
-            <h6 v-if="!$v.age.minVal">You have to be at least {{ $v.age.$params.minVal.min }} years old.</h6>
+            <p v-if="!$v.age.minVal">You have to be at least {{ $v.age.$params.minVal.min }} years old.</p>
             <input
                     type="number"
                     placeholder="Age"
@@ -22,27 +23,30 @@
                     v-model.lazy.number="age">
           </div>
           <div class="input" :class="{invalid: $v.password.$error}">
+            <p v-if="password.length && !$v.password.required">Password is required</p>
+            <p v-if="!$v.password.minLength">Password must have at least {{$v.password.$params.minLength.min}} letters.</p>
             <input
                     type="password"
                     placeholder="Password"
                     id="password"
                     @blur="$v.password.$touch()"
-                    v-model="password">
+                    v-model.lazy.trim="password">
           </div>
           <div class="input" :class="{invalid: $v.confirmPassword.$error}">
+            <p v-if="confirmPassword.length && !$v.confirmPassword.sameAs">Passwords must be identical.</p>
             <input
                     type="password"
                     placeholder="Confirm Password"
                     id="confirm-password"
                     @blur="$v.confirmPassword.$touch()"
-                    v-model="confirmPassword">
+                    v-model.lazy.trim="confirmPassword">
           </div>
           <div class="input">
             <select id="country" v-model="country">
+              <option value="macedonia">MKD</option>
               <option value="usa">USA</option>
-              <option value="india">India</option>
               <option value="uk">UK</option>
-              <option value="germany">Germany</option>
+              <option value="germany">GER</option>
             </select>
           </div>
           <div class="hobbies">
@@ -65,7 +69,8 @@
             <input type="checkbox" id="terms" v-model="terms">
             <label for="terms">Accept Terms of Use</label>
           </div>
-          <button type="submit" :disabled="$v.$invalid">Create</button>
+          <!-- <button type="submit" :disabled="$v.$invalid">Create</button> -->
+          <button type="submit">Create</button>
           <p class="message">Already registered? <router-link to="/signin">Sign In</router-link></p>
         </form>
       </div>
@@ -100,6 +105,10 @@
         this.hobbyInputs = this.hobbyInputs.filter(hobby => hobby.id !== id)
       },
       onSubmit () {
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          alert("Please complete all field correctly");
+        }
         const formData = {
           email: this.email,
           age: this.age,
@@ -124,7 +133,7 @@
       },
       password: {
         required,
-        minLen: minLength(6)
+        minLength: minLength(6)
       },
       confirmPassword: {
         // sameAs: sameAs('password')
@@ -179,5 +188,10 @@
     width: 20%;
     border-radius: 2px;
     padding: 4px;
+  }
+
+  .invalid {
+    color: red;
+    font-size: 14px;
   }
 </style>

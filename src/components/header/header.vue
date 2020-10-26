@@ -38,6 +38,8 @@
     font-size: 25px;
     font-weight: bold;
     margin: 0 15px;
+    padding: 10px;
+    vertical-align: -17px;
     text-decoration: none;
     color: white;
   }
@@ -84,6 +86,11 @@
       display: block;
       text-align: left;
     }
+
+    .logo {
+      margin: 0px;
+    }
+
     .header-right {
       float: none;
     }

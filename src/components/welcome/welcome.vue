@@ -32,6 +32,7 @@
   .cta a {
     margin: 0 auto 10px;
     text-decoration: none;
+    text-align: center;
     display: inline-block;
     border: 1px solid #521751;
     border-radius: 3px;
