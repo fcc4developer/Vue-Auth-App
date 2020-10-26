@@ -1,26 +1,14 @@
 <template>
-  <header id="header">
-    <div class="logo">
-      <router-link v-if="!auth" to="/">Vue Auth</router-link>
-      <router-link v-if="auth" to="/dashboard">Dashboard</router-link>
+  <div class="header">
+    <router-link v-if="!auth" to="/" class="logo">Vue Auth</router-link>
+    <router-link v-if="auth" to="/dashboard" class="logo">Dashboard</router-link>
+    <div class="header-right">
+      <router-link v-if="!auth" to="/signup" class="link">Sign Up</router-link>
+      <router-link v-if="!auth" to="/signin" class="link">Sign In</router-link>
+      <router-link v-if="auth" to="/profile" class="link">Profile</router-link>
+      <button class="link logout" @click="onLogout" v-if="auth" to="/logout">Logout</button>
     </div>
-    <nav>
-      <ul>
-        <li>
-          <router-link v-if="!auth" to="/signup">Sign Up</router-link>
-        </li>
-        <li>
-          <router-link v-if="!auth" to="/signin">Sign In</router-link>
-        </li>
-        <li>
-          <router-link v-if="auth" to="/profile">Profile</router-link>
-        </li>
-        <li>
-          <button class="logout" @click="onLogout" v-if="auth" to="/logout">Logout</button>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -39,49 +27,45 @@
 </script>
 
 <style scoped>
-  #header {
-    height: 60px;
-    width: 60vw;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
+  .header {
+    overflow: hidden;
     background-color: #3f3f3f;
-    padding: 0 20px;
     margin: 0 auto 30px;
+    padding: 10px 10px;
   }
 
   .logo {
+    font-size: 25px;
     font-weight: bold;
-    color: white;
-  }
-
-  .logo a {
+    margin: 0 15px;
     text-decoration: none;
     color: white;
   }
 
-  nav {
-    height: 100%;
-  }
-
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-  }
-
-  li {
-    margin: 0 16px;
-  }
-
-  li a {
+  .link {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    margin: 0 5px;
     text-decoration: none;
     color: white;
+    line-height: 25px;
+    border-radius: 4px;
+  }
+
+  .link:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .link.active {
+    background-color: dodgerblue;
+    color: white;
+  }
+
+  .header-right {
+    float: right;
   }
 
   .logout {
@@ -90,5 +74,22 @@
     font: inherit;
     color: white;
     cursor: pointer;
+    padding: 15px;
   }
+
+  @media screen and (max-width: 500px) {
+    .link,
+    .logo {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    .header-right {
+      float: none;
+    }
+
+    .logout {
+      padding: 10px;
+    }
+}
 </style>

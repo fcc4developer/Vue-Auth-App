@@ -25,18 +25,18 @@
   .cta {
     width: 300px;
     margin: auto;
-    text-align: center;
+    display: flex;
+    flex-flow: row;
   }
 
   .cta a {
-    margin: 10px;
+    margin: 0 auto 10px;
     text-decoration: none;
     display: inline-block;
     border: 1px solid #521751;
     border-radius: 3px;
     width: 100px;
     padding: 10px;
-    box-sizing: border-box;
     color: #521751;
   }
 

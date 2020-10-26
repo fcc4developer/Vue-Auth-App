@@ -22,9 +22,12 @@
 
 <style>
   @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-  html, body{
-    margin:0px;
-    padding:0px;
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0px;
+    padding: 0px;
   }
 
   body {
